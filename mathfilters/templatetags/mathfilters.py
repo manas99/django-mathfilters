@@ -134,3 +134,33 @@ def addition(value, arg):
         except Exception:
             return ''
 addition.is_safe = False
+
+
+@register.filter(name='addition')
+def root(value, arg):
+    """Find the nth root of a number."""
+    try:
+        nvalue, narg = handle_float_decimal_combinations(
+            valid_numeric(value), valid_numeric(arg), '+')
+        return nvalue**(1./narg)
+    except (ValueError, TypeError):
+        try:
+            return value + arg
+        except Exception:
+            return ''
+root.is_safe = False
+
+
+@register.filter(name='addition')
+def pow(value, arg):
+    """Find the nth power of a number."""
+    try:
+        nvalue, narg = handle_float_decimal_combinations(
+            valid_numeric(value), valid_numeric(arg), '+')
+        return nvalue**narg
+    except (ValueError, TypeError):
+        try:
+            return value + arg
+        except Exception:
+            return ''
+pow.is_safe = False
